@@ -18,7 +18,7 @@ TODO
 
 ### 使用示范
 
-定义
+定义配置类
 
 ```java
 // 定义需要存放 KV 的配置类，需要继承 KVStorage 接口
@@ -38,7 +38,7 @@ public interface Settings extends KVStorage {
 }
 ```
 
-Save or read:
+创建 KV 存储对象和使用
 
 ```java
 // 建议在 Application onCreate 时创建唯一实例。
@@ -69,7 +69,9 @@ allprojects {
 
 // module
 dependencies {
-    // TODO
+    implementation 'com.github.twiceyuan.RetroKV:retrokv:bdac50e61f'
+    // 使用 MMKV 作为底层存储方案的适配器
+    implementation 'com.github.twiceyuan.RetroKV:retrokv-mmkv-adapter:bdac50e61f'
 }
 ```
 

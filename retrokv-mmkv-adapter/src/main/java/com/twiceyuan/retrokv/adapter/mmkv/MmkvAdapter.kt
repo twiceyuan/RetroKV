@@ -4,8 +4,8 @@ import android.content.Context
 import android.os.Parcelable
 import android.util.Log
 import com.tencent.mmkv.MMKV
-import com.twiceyuan.retrokv.adapters.Adapter
 import com.twiceyuan.retrokv.adapters.AdapterFactory
+import com.twiceyuan.retrokv.adapters.StorageAdapter
 import com.twiceyuan.retrokv.getParameterUpperBound
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
@@ -36,7 +36,7 @@ private val defaultCreator = object : MmkvInstanceCreator {
 class MmkvAdapterFactory(
         initializer: MmkvInitializer,
         private val creator: MmkvInstanceCreator = defaultCreator
-) : AdapterFactory<MmkvAdapter> {
+) : StorageAdapterFactory<MmkvAdapter> {
 
     /**
      * 默认初始化器，传入 Context 进行初始化，需要定制初始化过程请传入 initializer
@@ -60,7 +60,7 @@ class MmkvAdapterFactory(
 /**
  * 使用 MMKV 作为 RetroKV 的存储容器的适配器
  */
-class MmkvAdapter(private val mmkv: MMKV) : Adapter {
+class MmkvAdapter(private val mmkv: MMKV) : StorageAdapter {
 
     enum class SupportedType {
         BOOLEAN,

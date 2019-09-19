@@ -13,7 +13,7 @@ import java.lang.reflect.Type
  */
 class SharedPreferencesAdapterFactory(
         val context: Context
-) : AdapterFactory<SharedPreferencesAdapter> {
+) : StorageAdapterFactory<SharedPreferencesAdapter> {
     override fun create(instanceName: String): SharedPreferencesAdapter {
         return SharedPreferencesAdapter(context, instanceName)
     }
@@ -22,7 +22,7 @@ class SharedPreferencesAdapterFactory(
 /**
  * 使用 SharedPreferences 作为存储容器的适配器
  */
-class SharedPreferencesAdapter(context: Context, fileName: String) : Adapter {
+class SharedPreferencesAdapter(context: Context, fileName: String) : StorageAdapter {
 
     private val preferences: SharedPreferences =
             context.getSharedPreferences(fileName, Context.MODE_PRIVATE)

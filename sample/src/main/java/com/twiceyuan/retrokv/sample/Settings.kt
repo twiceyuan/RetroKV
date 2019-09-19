@@ -1,7 +1,7 @@
 package com.twiceyuan.retrokv.sample
 
 import com.twiceyuan.retrokv.KVStorage
-import com.twiceyuan.retrokv.Preference
+import com.twiceyuan.retrokv.KeyValue
 
 /**
  * Created by twiceYuan on 20/01/2017.
@@ -13,10 +13,10 @@ interface Settings : KVStorage {
     /**
      * Mark launch count
      */
-    fun launchCount(): Preference<Int>
+    fun launchCount(): KeyValue<Int>
 
     /**
      * Save current user instance
      */
-    fun currentUser(): Preference<User>
+    fun currentUser(): KeyValue<User>
 }

@@ -2,7 +2,7 @@ package com.twiceyuan.retrokv.adapter.mmkv
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.twiceyuan.retrokv.Preference
+import com.twiceyuan.retrokv.KeyValue
 import com.twiceyuan.retrokv.RetroKV
 import com.twiceyuan.retrokv.adapter.mmkv.storage.StoragePreference
 import org.junit.After
@@ -31,11 +31,11 @@ class MultipleInstanceTest {
     }
 
     interface Settings1: StoragePreference {
-        fun value1(): Preference<String>
+        fun value1(): KeyValue<String>
     }
 
     interface Settings2: StoragePreference {
-        fun value1(): Preference<String>
+        fun value1(): KeyValue<String>
     }
 
     @Test

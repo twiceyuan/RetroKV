@@ -1,9 +1,9 @@
 package com.twiceyuan.retrokv
 
-import com.twiceyuan.retrokv.adapters.AdapterFactory
+import com.twiceyuan.retrokv.adapters.StorageAdapterFactory
 import com.twiceyuan.retrokv.annotations.KeyName
+import com.twiceyuan.retrokv.annotations.KeyParam
 import com.twiceyuan.retrokv.annotations.PreferenceBuilder
-import com.twiceyuan.retrokv.exceptions.KeyNameError
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
@@ -18,9 +18,9 @@ class RetroKV {
 
     class Builder {
 
-        private var adapterFactory: AdapterFactory<*>? = null
+        private var adapterFactory: StorageAdapterFactory<*>? = null
 
-        fun setAdapterFactory(factory: AdapterFactory<*>) = apply {
+        fun setAdapterFactory(factory: StorageAdapterFactory<*>) = apply {
             adapterFactory = factory
         }
 
@@ -29,7 +29,7 @@ class RetroKV {
         }
     }
 
-    var adapterFactory: AdapterFactory<*>? = null
+    var adapterFactory: StorageAdapterFactory<*>? = null
 
     inline fun <reified T : KVStorage> create(instanceName: String): T =
             createInstance(instanceName, T::class.java)
@@ -42,7 +42,7 @@ class RetroKV {
     }
 
     fun <T : KVStorage> createInstance(instanceName: String, storageClass: Class<T>): T {
-        val factory: AdapterFactory<*> = adapterFactory ?: throw IllegalArgumentException(
+        val factory: StorageAdapterFactory<*> = adapterFactory ?: throw IllegalArgumentException(
                 "Please set adapter factory first"
         )
 
@@ -51,7 +51,7 @@ class RetroKV {
         val adapter = factory.create(instanceName)
 
         @Suppress("UNCHECKED_CAST")
-        return Proxy.newProxyInstance(loader, implementClassed, InvocationHandler { _, method, _ ->
+        return Proxy.newProxyInstance(loader, implementClassed, InvocationHandler { _, method, params ->
             if (method.name == KVStorage::clear.name) {
                 adapter.clear()
                 return@InvocationHandler null
@@ -61,7 +61,7 @@ class RetroKV {
                 return@InvocationHandler adapter.allKeys()
             }
 
-            val key = getKeyNameFromMethod(method)
+            val key = getKeyNameFromMethod(method, params)
             val returnType = method.genericReturnType
             val preferenceType = getParameterUpperBound(0, returnType as ParameterizedType)
             PreferenceBuilder(key, preferenceType, adapter).build()

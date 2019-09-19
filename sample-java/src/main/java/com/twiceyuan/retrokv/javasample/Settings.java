@@ -1,7 +1,7 @@
 package com.twiceyuan.retrokv.javasample;
 
 import com.twiceyuan.retrokv.KVStorage;
-import com.twiceyuan.retrokv.Preference;
+import com.twiceyuan.retrokv.KeyValue;
 
 import java.util.HashMap;
 
@@ -15,15 +15,15 @@ public interface Settings extends KVStorage {
     /**
      * Mark launch count
      */
-    Preference<Integer> launchCount();
+    KeyValue<Integer> launchCount();
 
     /**
      * Save current user instance
      */
-    Preference<User> currentUser();
+    KeyValue<User> currentUser();
 
     /**
      * Map type test
      */
-    Preference<HashMap<String, Integer>> testMap();
+    KeyValue<HashMap<String, Integer>> testMap();
 }

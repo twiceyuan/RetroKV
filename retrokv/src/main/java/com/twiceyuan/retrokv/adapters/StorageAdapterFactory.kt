@@ -1,6 +1,6 @@
 package com.twiceyuan.retrokv.adapters
 
-interface AdapterFactory<T: Adapter> {
+interface StorageAdapterFactory<T: StorageAdapter> {
 
     fun create(instanceName: String): T
 }

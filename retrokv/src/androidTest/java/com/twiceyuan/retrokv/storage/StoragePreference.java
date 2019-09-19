@@ -1,16 +1,16 @@
 package com.twiceyuan.retrokv.storage;
 
 import com.twiceyuan.retrokv.KVStorage;
-import com.twiceyuan.retrokv.Preference;
+import com.twiceyuan.retrokv.KeyValue;
 
 /**
  * Created by twiceYuan on 10/02/2017.
  * <p>
- * KVStorage Preference
+ * KVStorage KeyValue
  */
 public interface StoragePreference extends KVStorage {
 
-    Preference<String> username();
+    KeyValue<String> username();
 
-    Preference<String> password();
+    KeyValue<String> password();
 }

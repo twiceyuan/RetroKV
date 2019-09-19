@@ -1,7 +1,7 @@
 package com.twiceyuan.retrokv.storage
 
 import com.twiceyuan.retrokv.KVStorage
-import com.twiceyuan.retrokv.Preference
+import com.twiceyuan.retrokv.KeyValue
 import com.twiceyuan.retrokv.annotations.KeyName
 
 /**
@@ -12,20 +12,20 @@ import com.twiceyuan.retrokv.annotations.KeyName
 interface AnnotationSettings2 : KVStorage {
 
     @KeyName("is_login")
-    fun isLogin(): Preference<Boolean>
+    fun isLogin(): KeyValue<Boolean>
 
     @KeyName("launch_count")
-    fun launchCount(): Preference<Int>
+    fun launchCount(): KeyValue<Int>
 
     @KeyName("user_points")
-    fun userPoints(): Preference<Float>
+    fun userPoints(): KeyValue<Float>
 
     @KeyName("last_login")
-    fun lastLogin(): Preference<Long>
+    fun lastLogin(): KeyValue<Long>
 
     @KeyName("username")
-    fun username(): Preference<String>
+    fun username(): KeyValue<String>
 
     @KeyName("user_tags")
-    fun userTags(): Preference<Set<String>>
+    fun userTags(): KeyValue<Set<String>>
 }

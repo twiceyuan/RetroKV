@@ -30,11 +30,11 @@ class MultipleInstanceTest {
     }
 
     interface Settings1: StoragePreference {
-        fun value1(): Preference<String>
+        fun value1(): KeyValue<String>
     }
 
     interface Settings2: StoragePreference {
-        fun value1(): Preference<String>
+        fun value1(): KeyValue<String>
     }
 
     @Test

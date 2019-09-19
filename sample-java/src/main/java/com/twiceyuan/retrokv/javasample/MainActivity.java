@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.twiceyuan.retrokv.Preference;
+import com.twiceyuan.retrokv.KeyValue;
 import com.twiceyuan.retrokv.RetroKV;
 import com.twiceyuan.retrokv.adapter.mmkv.MmkvAdapterFactory;
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 .createInstance(Settings.class);
 
         // Get preference item holder
-        Preference<Integer> launchCount = settings.launchCount();
+        KeyValue<Integer> launchCount = settings.launchCount();
 
         // getWithDefault the preference value
         Integer count = launchCount.get();
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         launchCount.set(count + 1);
 
         // Object store
-        Preference<User> userPreference = settings.currentUser();
+        KeyValue<User> userPreference = settings.currentUser();
 
         User defaultUser = new User("twiceYuan", "123456", 0f, 1000);
         User currentUser = userPreference.get();

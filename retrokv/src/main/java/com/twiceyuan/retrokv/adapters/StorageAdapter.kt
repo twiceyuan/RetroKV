@@ -2,7 +2,7 @@ package com.twiceyuan.retrokv.adapters
 
 import java.lang.reflect.Type
 
-interface Adapter {
+interface StorageAdapter {
 
     /**
      * Save a value by key

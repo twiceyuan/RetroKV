@@ -1,7 +1,7 @@
 package com.twiceyuan.retrokv.adapter.mmkv.storage;
 
 import com.twiceyuan.retrokv.KVStorage;
-import com.twiceyuan.retrokv.Preference;
+import com.twiceyuan.retrokv.KeyValue;
 import com.twiceyuan.retrokv.adapter.mmkv.model.MockUser;
 
 import java.util.Set;
@@ -13,17 +13,17 @@ import java.util.Set;
  */
 public interface Settings extends KVStorage {
 
-    Preference<Integer> launch_count();
+    KeyValue<Integer> launch_count();
 
-    Preference<Boolean> is_login();
+    KeyValue<Boolean> is_login();
 
-    Preference<Float> user_points();
+    KeyValue<Float> user_points();
 
-    Preference<Long> last_login();
+    KeyValue<Long> last_login();
 
-    Preference<String> username();
+    KeyValue<String> username();
 
-    Preference<Set<String>> user_tags();
+    KeyValue<Set<String>> user_tags();
 
-    Preference<MockUser> userModel();
+    KeyValue<MockUser> userModel();
 }

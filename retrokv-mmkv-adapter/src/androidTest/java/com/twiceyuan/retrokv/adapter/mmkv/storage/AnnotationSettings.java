@@ -1,7 +1,7 @@
 package com.twiceyuan.retrokv.adapter.mmkv.storage;
 
 import com.twiceyuan.retrokv.KVStorage;
-import com.twiceyuan.retrokv.Preference;
+import com.twiceyuan.retrokv.KeyValue;
 import com.twiceyuan.retrokv.annotations.KeyName;
 
 import java.util.Set;
@@ -14,20 +14,20 @@ import java.util.Set;
 public interface AnnotationSettings extends KVStorage {
 
     @KeyName("launch_count")
-    Preference<Integer> launchCount();
+    KeyValue<Integer> launchCount();
 
     @KeyName("is_login")
-    Preference<Boolean> isLogin();
+    KeyValue<Boolean> isLogin();
 
     @KeyName("user_points")
-    Preference<Float> userPoints();
+    KeyValue<Float> userPoints();
 
     @KeyName("last_login")
-    Preference<Long> lastLogin();
+    KeyValue<Long> lastLogin();
 
     @KeyName("username")
-    Preference<String> username();
+    KeyValue<String> username();
 
     @KeyName("user_tags")
-    Preference<Set<String>> userTags();
+    KeyValue<Set<String>> userTags();
 }

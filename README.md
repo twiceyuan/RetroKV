@@ -1,24 +1,28 @@
-# RetroPreference
+# RetroKV
 
-[![](https://jitpack.io/v/twiceyuan/RetroPreference.svg)](https://jitpack.io/#twiceyuan/RetroPreference)
+[![](https://jitpack.io/v/twiceyuan/RetroRV.svg)](https://jitpack.io/#twiceyuan/RetroRV)
 
+KV wrapper inspired by Retrofit，类型安全的 KV 工具。
 
-SharedPreferences wrapper inspired by Retrofit，类型安全的 SharedPreferences 工具。
-
-* [x] Type Safe
+* [x] 类型安全
 * [x] Key 强一致
-* [x] 混淆代码同时也会混淆 SharedPreferences 的文件 name 和 key name，并且不影响使用[1]
-* [x] 代理类实例的缓存
-* [x] Serializable 对象存储
+* [x] 支持存储方案的更换（目前支持 SharedPreferences 和 MMKV）
+
+RetroKV 和通常的 KV 库相当于 Retrofit 和 OkHttp 的关系，RetroKV 只是为了让定义和使用方便和保证一致性。
+
+如果你想让 RetroRV 支持更多 K-V 方案，可以参照 module retrokv-mmkv-adapter 的实现方式开发新的适配器。
+
+TODO
+
 * [ ] 代理类定义合法性预检查
 
-### Sample Code
+### 使用示范
 
-Define:
+定义
 
 ```java
-// 需要调用 clear 方法清空 sp 的话可以继承 Clearable 接口
-public interface Settings extends Clearable {
+// 定义需要存放 KV 的配置类，需要继承 KVStorage 接口
+public interface Settings extends KVStorage {
 
     Preference<Integer> launch_count();
 
@@ -38,20 +42,20 @@ Save or read:
 
 ```java
 // 建议在 Application onCreate 时创建唯一实例。
-mSettings = RetroPreference.createKt(appContext, Settings.class, Context.MODE_PRIVATE);
-// 保存启动次数
-mSettings.launche_count().set(7);
-// 获得存储的值
-mSettings.launche_count().getWithDefault();
-// or
-mSettings.launche_count().getWithDefault(100); // 100 为默认值
-```
+Settings settings = new RetroKV.Builder()
+    // 使用 MMKV 作为底层存储方案
+    .setAdapterFactory(new MmkvAdapterFactory(this))
+    .build()
+    .createInstance(Settings.class);
 
-更多用例参考[测试用例](https://github.com/twiceyuan/RetroPreference/tree/master/retropreference/src/androidTest/java/com/twiceyuan/retropreference)
+// 存取
+settings.currentUser().set(testUser);
+User user = settings.currentUser().get();
+```
 
 ## 引用
 
-[![](https://jitpack.io/v/twiceyuan/RetroPreference.svg)](https://jitpack.io/#twiceyuan/RetroPreference)
+[![](https://jitpack.io/v/twiceyuan/RetroKV.svg)](https://jitpack.io/#twiceyuan/RetroKV)
 
 
 ```groovy
@@ -65,16 +69,14 @@ allprojects {
 
 // module
 dependencies {
-    compile 'com.github.twiceyuan:RetroPreference:[last-version]'
+    // TODO
 }
 ```
-
-[1] 仅在注解时有效，后续会添加自定义混淆规则的选项。或者在proguard文件中keep相关的SharedPreferences定义项。
 
 ## License
 
 ```
-Copyright 2016 twiceYuan.
+Copyright 2019 twiceYuan.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

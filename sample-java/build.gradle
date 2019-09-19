@@ -1,38 +1,24 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.twiceyuan.retrokv"
+        applicationId "com.twiceyuan.retrokv.javasample"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
-        debug {
-            debuggable true
-            // 混淆测试
+        release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
     }
-    androidExtensions {
-        experimental = true
-    }
-}
-
-repositories {
-    maven { url 'https://jitpack.io' }
-    google()
 }
 
 dependencies {
@@ -40,5 +26,4 @@ dependencies {
     implementation project(':retrokv')
     implementation project(':retrokv-mmkv-adapter')
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

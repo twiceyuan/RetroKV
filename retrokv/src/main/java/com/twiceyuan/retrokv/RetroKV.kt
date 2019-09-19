@@ -72,25 +72,35 @@ class RetroKV {
      * 获得方法的 key 值。优先使用注解值，注解值不存在时使用方法名作为 key
 
      * @param method 定义的方法集接口方法
-     * *
-     * @return 该项 sp 的 key 值
+     * @param params 方法的参数，需要取得定义了 KeyParam 的参数作为 key 的一部分
+     * @return 该项 KeyValue 的 key 值
      */
-    private fun getKeyNameFromMethod(method: Method): String {
+    private fun getKeyNameFromMethod(method: Method, params: Array<Any>): String {
+
         val annotations = method.annotations
-        if (annotations.isEmpty()) {
-            return method.name
+
+        val keyNameAnnotation: KeyName? = annotations.firstOrNull { it is KeyName }?.let { it as KeyName }
+
+        // 优先使用 KeyName 注解的值，没有时使用 Method 的名称
+        var key: String = keyNameAnnotation?.value ?: method.name
+
+        // 如果函数没有参数，则 key 构造完毕
+        if (params.isEmpty()) {
+            return key
         }
 
-        if (annotations.size != 1) {
-            throw KeyNameError(method)
+        // 如果函数有被 KeyParam 注解的参数，则在 key 后追加 N 个 "#paramKey=paramValue" 的形式作为 Key
+        val parameterAnnotations = method.parameterAnnotations
+        for (index in (params.indices)) {
+            val keyParamAnnotation: KeyParam? = parameterAnnotations[index]
+                    .firstOrNull { it is KeyParam }
+                    ?.let { it as KeyParam }
+            if (keyParamAnnotation != null) {
+                key = "$key#${keyParamAnnotation.value}=${params[index]}"
+            }
         }
 
-        val annotation = annotations[0]
-        if (annotation is KeyName) {
-            return annotation.value
-        } else {
-            throw KeyNameError(method, annotation)
-        }
+        return key
     }
 }
 

@@ -1,7 +1,6 @@
 package com.twiceyuan.retrokv.adapter.mmkv
 
 import android.content.Context
-import android.os.Environment
 import android.os.Parcelable
 import android.util.Log
 import com.tencent.mmkv.MMKV
@@ -17,6 +16,10 @@ interface MmkvInstanceCreator {
     fun create(instanceName: String): MMKV
 }
 
+interface MmkvInitializer {
+    fun init()
+}
+
 /**
  * MMKV 默认实例构造器
  */
@@ -28,30 +31,28 @@ private val defaultCreator = object : MmkvInstanceCreator {
 }
 
 /**
- * 默认初始化器
- */
-private val defaultInitializer = {
-    MMKV.initialize(Environment.getRootDirectory().absolutePath + "/RetroKV_MMKV")
-    Unit
-}
-
-/**
  * 适配器工厂类
  */
 class MmkvAdapterFactory(
-        initializer: () -> Unit = defaultInitializer,
+        initializer: MmkvInitializer,
         private val creator: MmkvInstanceCreator = defaultCreator
 ) : AdapterFactory<MmkvAdapter> {
 
-    constructor(context: Context) : this(initializer = {
-        MMKV.initialize(context)
+    /**
+     * 默认初始化器，传入 Context 进行初始化，需要定制初始化过程请传入 initializer
+     */
+    constructor(context: Context) : this(initializer = object : MmkvInitializer {
+        override fun init() {
+            MMKV.initialize(context)
+        }
     })
 
     init {
-        initializer()
+        initializer.init()
     }
 
     override fun create(instanceName: String): MmkvAdapter {
+        // 需要定制实例创建过程请构造时传入 creator
         return MmkvAdapter(creator.create(instanceName))
     }
 }

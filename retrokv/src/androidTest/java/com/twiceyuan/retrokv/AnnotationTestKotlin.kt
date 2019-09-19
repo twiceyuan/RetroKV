@@ -70,9 +70,7 @@ class AnnotationTestKotlin {
     fun testInteger() {
         mSettings.launchCount().set(7)
         val stored = mSettings.launchCount().get()
-        if (7 != stored) {
-            throw AssertionError()
-        }
+        Assert.assertEquals(7, stored)
         mSettings.launchCount().remove()
     }
 

@@ -73,9 +73,7 @@ public class UseCaseTest {
     public void testInteger() {
         mSettings.launch_count().set(7);
         Integer stored = mSettings.launch_count().get();
-        if (stored == null || stored != 7) {
-            throw new AssertionError();
-        }
+        Assert.assertEquals((Integer) 7, stored);
         mSettings.launch_count().remove();
     }
 

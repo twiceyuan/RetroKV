@@ -13,7 +13,7 @@ import org.junit.Test;
 /**
  * Created by twiceYuan on 10/02/2017.
  *
- * 测试 remove 功能
+ * 测试 clear 功能
  */
 public class ClearTest {
 

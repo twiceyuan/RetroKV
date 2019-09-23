@@ -1,1 +1,1 @@
-include ':sample', ':retrokv', ':sample-java', ':retrokv-mmkv-adapter'
+include ':sample', ':retrokv', ':retrokv-mmkv-adapter'

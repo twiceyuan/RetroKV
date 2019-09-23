@@ -3,7 +3,7 @@ package com.twiceyuan.retrokv
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.twiceyuan.retrokv.adapters.SharedPreferencesAdapterFactory
-import com.twiceyuan.retrokv.storage.StoragePreference
+import com.twiceyuan.retrokv.storage.KeyValueStorage
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -29,11 +29,11 @@ class MultipleInstanceTest {
                 .build()
     }
 
-    interface Settings1: StoragePreference {
+    interface Settings1: KeyValueStorage {
         fun value1(): KeyValue<String>
     }
 
-    interface Settings2: StoragePreference {
+    interface Settings2: KeyValueStorage {
         fun value1(): KeyValue<String>
     }
 

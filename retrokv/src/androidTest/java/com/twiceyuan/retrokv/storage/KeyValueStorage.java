@@ -8,7 +8,7 @@ import com.twiceyuan.retrokv.KeyValue;
  * <p>
  * KVStorage KeyValue
  */
-public interface StoragePreference extends KVStorage {
+public interface KeyValueStorage extends KVStorage {
 
     KeyValue<String> username();
 

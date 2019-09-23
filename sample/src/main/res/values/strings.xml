@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">RetroPreference</string>
+    <string name="clear_all">Clear All</string>
+    <string name="save_key_value">Save Key Value</string>
+    <string name="please_input_key">Please input key</string>
+    <string name="please_input_value">Please input value</string>
+    <string name="read_all">Read All</string>
+    <string name="input_value_for_key_sample_int">Input value for key \'sampleInt\'</string>
+    <string name="input_value_for_key_sample_string">Input value for key \'sampleString\'</string>
+    <string name="input_value_for_key_sample_parcelable">Input value for key \'sampleParcelable\'</string>
+    <string name="please_input_username">username</string>
+    <string name="please_input_user_age">user\'s age</string>
+    <string name="format_error_int">Invalid int format</string>
 </resources>

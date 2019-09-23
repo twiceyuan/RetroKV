@@ -4,8 +4,8 @@ import android.content.Context
 import android.os.Parcelable
 import android.util.Log
 import com.tencent.mmkv.MMKV
-import com.twiceyuan.retrokv.adapters.AdapterFactory
 import com.twiceyuan.retrokv.adapters.StorageAdapter
+import com.twiceyuan.retrokv.adapters.StorageAdapterFactory
 import com.twiceyuan.retrokv.getParameterUpperBound
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type

@@ -1,7 +1,7 @@
 package com.twiceyuan.retrokv.sample
 
 import android.os.Bundle
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.twiceyuan.retrokv.RetroKV
 import com.twiceyuan.retrokv.adapter.mmkv.MmkvAdapterFactory
@@ -9,43 +9,64 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var settings: Settings
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val settings: Settings = RetroKV.Builder()
+        settings = RetroKV.Builder()
                 .setAdapterFactory(MmkvAdapterFactory(this))
                 .build()
                 .create()
 
-        // Get preference item holder
-        val launchCount = settings.launchCount()
-
-        // getWithDefault the preference value
-        val count: Int? = launchCount.get() ?: 0
-
-        findViewById<TextView>(R.id.tv_launch).text = String.format("启动次数：%s", count)
-
-        if (count != null) {
-            // set the preference value
-            launchCount.set(count.plus(1))
-        } else {
-            launchCount.set(1)
+        btn_save.setOnClickListener {
+            saveInt()
+            saveString()
+            saveUser()
         }
 
-        // Object store
-        val userPreference = settings.currentUser()
-        var currentUser: User? = userPreference.get()
-        if (currentUser != null) {
-            currentUser.age++
-            currentUser.score -= 0.1f
-            val textDesc = "当前用户：\n$currentUser"
-            findViewById<TextView>(R.id.tv_user).text = textDesc
-        } else {
-            currentUser = User(username = "twiceYuan", password = "123456", age = 0, score = 1000f)
+        btn_read.setOnClickListener {
+
+            for (key in settings.allKeys()) {
+
+                val content = "" +
+                        "sampleInt: ${settings.sampleInt().get()}\n" +
+                        "sampleString: ${settings.sampleString().get()}\n" +
+                        "sampleInt: ${settings.sampleParcelable().get()}\n"
+
+                et_read_all.setText(content)
+            }
         }
-        userPreference.set(currentUser)
 
         btn_clear_all.setOnClickListener { settings.clear() }
+    }
+
+    private fun saveInt() {
+        val originInput = et_for_int.text.toString()
+        if (originInput.isEmpty()) return
+        try {
+            val intValue = Integer.parseInt(originInput)
+            settings.sampleInt().set(intValue)
+        } catch (e: Exception) {
+            Toast.makeText(this, R.string.format_error_int, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveString() {
+        settings.sampleString().set(et_for_string.text.toString())
+    }
+
+    private fun saveUser() {
+        val ageInput = et_for_parcelable_user_age.text.toString()
+        val ageValue: Int
+        try {
+            ageValue = Integer.parseInt(ageInput)
+        } catch (e: Exception) {
+            Toast.makeText(this, R.string.format_error_int, Toast.LENGTH_SHORT).show()
+            return
+        }
+        val user = User(et_for_parcelable_username.text.toString(), ageValue)
+        settings.sampleParcelable().set(user)
     }
 }

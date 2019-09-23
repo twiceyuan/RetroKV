@@ -4,7 +4,7 @@ import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.twiceyuan.retrokv.adapters.SharedPreferencesAdapterFactory;
-import com.twiceyuan.retrokv.storage.StoragePreference;
+import com.twiceyuan.retrokv.storage.KeyValueStorage;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,10 +27,10 @@ public class ClearTest {
 
     @Test
     public void testClear() {
-        StoragePreference preference = new RetroKV.Builder()
+        KeyValueStorage preference = new RetroKV.Builder()
                 .setAdapterFactory(new SharedPreferencesAdapterFactory(mAppContext))
                 .build()
-                .createInstance(StoragePreference.class);
+                .createInstance(KeyValueStorage.class);
 
         preference.username().set("twiceYuan");
         preference.password().set("password");

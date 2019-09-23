@@ -12,19 +12,15 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class User(
         val username: String,
-        var password: String,
-        var score: Float,
         var age: Int
-): Parcelable {
+) : Parcelable {
 
     override fun toString(): String {
         return String.format("" +
                 "{\n" +
                 "    username: %s,\n" +
-                "    password: %s,\n" +
-                "    score: %s,\n" +
                 "    age: %s\n" +
                 "}",
-                username, password, score, age)
+                username, age)
     }
 }

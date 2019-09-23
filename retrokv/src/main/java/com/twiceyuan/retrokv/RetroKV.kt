@@ -75,7 +75,7 @@ class RetroKV {
      * @param params 方法的参数，需要取得定义了 KeyParam 的参数作为 key 的一部分
      * @return 该项 KeyValue 的 key 值
      */
-    private fun getKeyNameFromMethod(method: Method, params: Array<Any>): String {
+    private fun getKeyNameFromMethod(method: Method, params: Array<Any>?): String {
 
         val annotations = method.annotations
 
@@ -85,7 +85,7 @@ class RetroKV {
         var key: String = keyNameAnnotation?.value ?: method.name
 
         // 如果函数没有参数，则 key 构造完毕
-        if (params.isEmpty()) {
+        if (params == null || params.isEmpty()) {
             return key
         }
 

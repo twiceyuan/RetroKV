@@ -10,13 +10,12 @@ import com.twiceyuan.retrokv.KeyValue
  */
 interface Settings : KVStorage {
 
-    /**
-     * Mark launch count
-     */
-    fun launchCount(): KeyValue<Int>
+    fun sampleInt(): KeyValue<Int>
+
+    fun sampleString(): KeyValue<String>
 
     /**
      * Save current user instance
      */
-    fun currentUser(): KeyValue<User>
+    fun sampleParcelable(): KeyValue<User>
 }
